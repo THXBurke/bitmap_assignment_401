@@ -9,6 +9,8 @@
   "author": "RBurke",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^2.7.0"
+    "chai": "^3.5.0",
+    "eslint": "^2.7.0",
+    "gulp": "^3.9.1"
   }
 }
