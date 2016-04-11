@@ -1,6 +1,8 @@
 # bitmap_assignment_401
 
-For this assignment you will be building a Bitmap reader and transformer. It will read a Bitmap in from disk, run one or more color transforms on the bitmap and then write it out to a new file. This project will require the use of node buffers in order to manipulate binary data. Your project should include tests, as well as a Gulpfile and package.json file. Make sure to run all your code through jshint or eslint. The process will look something like this:
+For this assignment I worked with Greg Magdsick, Phillip Nguyen, Shelly Yusuf, James Norton and Heidi Larson over the course of two days and different meet ups. 
+
+Task: you will be building a Bitmap reader and transformer. It will read a Bitmap in from disk, run one or more color transforms on the bitmap and then write it out to a new file. This project will require the use of node buffers in order to manipulate binary data. Your project should include tests, as well as a Gulpfile and package.json file. Make sure to run all your code through jshint or eslint. The process will look something like this:
 
 1. open file using fs and read it into a buffer
 
