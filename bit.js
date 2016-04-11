@@ -1,35 +1,51 @@
-const fs = require('fs');
+'use strict';
 
-var bitmap = fs.readFileSync(_dirname + '/palette-bitmap.bmp');
-
+var fs = require('fs');
+var bitmap = fs.readFileSync(__dirname + '/images/palette-bitmap.bmp');
 var bitmapData = {};
 
-bitmapData.headField = bitmap.toString('ascii', 0, 2);
-
-bitmapData.size = bitmap.readUInt32LE(10);
-
+// bitmapData.headField = bitmap.toString('ascii', 0, 2);
+//convert buffer header data into js object
+bitmapData.headField = bitmap.toString('ascii',0,2);
+bitmapData.size = bitmap.readUInt32LE(2);
 bitmapData.pixelArraysStart = bitmap.readUInt32LE(10);
-
 bitmapData.paletteColors = bitmap.readUInt32LE(46);
-bitmapData.height = bitmap.readUInt32E(18);
-bitmapData.width = bitmap.readUInt32LE(22);
 
-console.log('first color:' + bitmap[54]);
-console.log('alpha' + bitmap[1]);
-console.dir(bitmapData);
+console.dir(bitmapData.toString('hex'));
+console.log(bitmap.readUInt32LE(2));
+bitmapData.width = (bitmap.readUInt32LE(22));
 
 var colors = {};
-///do I need to npm install colors or something?
+colors.getColors = function () {
 
-colors.writeOverColors = function () {
-  for (var i=54; i<1078; i++) {
-    bitmap.writeUInt8(255, i);
-    bitmap.writeUInt8(0, i+1);
-    bitmap.writeUInt(0, i+2);
-    bitmap.writeUInt8(0, i+3);
-  }
+  for (var i = 54; i<64; i++) {
+    console.log('colors: ' + bitmap[i]);
+  };
+};
+colors.changeColors = function() {
+  var x = bitmap[58];
+  for (var i=55; i<1078; i = 1+2) {
+    bitmap[i] = x;
+  };
+
   return bitmap;
 };
-console.log(bitmap);
 
-fs.writeFileSync(__dirname + '/newimage.bmp', bitmap);
+colors.getColors();
+
+colors.changeColors = function() {
+
+  for(var i = 55; i<1078; i++) {
+    bitmap.writeUInt32LE(255, i);
+
+    console.log('break');
+    colors.changeColors();
+    colors.getColors();
+    return(bitmap);
+  };
+
+};
+
+colors.changeColors();
+
+fs.writeFileSync(__dirname + '/images/newimage.bmp', bitmap);
